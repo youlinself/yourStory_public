@@ -12,6 +12,16 @@
 
 告别旁观者视角，在这里，**你即是主角**。
 
+## 简单体验
+
+无需克隆源码或安装 Godot，Windows 用户可直接试玩：
+
+1. 从 [github](https://github.com/youlinself/yourStory_public/blob/main/dist.zip) 下载 `dist.zip`
+2. 解压到任意目录
+3. 双击运行 `main.exe`
+
+首次启动请在游戏内 **设置 → AI** 填写 API Key（需自行准备兼容 OpenAI API 的服务，见下方「环境要求」）。
+
 ## 许可证
 
 本仓库采用**双组件许可**：
