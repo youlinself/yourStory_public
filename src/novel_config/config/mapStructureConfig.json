@@ -1,6 +1,0 @@
-{
-  "overview": "string (整体地图描述，一句话概括)",
-  "regions": ["<RegionConfig，结构见 config/regionConfig.json>"],
-  "key_nodes": ["<KeyNodeConfig，结构见 config/keyNodeConfig.json>"],
-  "map_pages": ["<LocalMapPageConfig，结构见 config/localMapPageConfig.json>"]
-}

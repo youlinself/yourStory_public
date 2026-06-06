@@ -1,7 +1,0 @@
-{
-  "id": "string (节点唯一 ID，如 node_ancient_gate)",
-  "name": "string (节点名称)",
-  "type": "string (类型，如地标/遗迹/要塞/圣地等)",
-  "description": "string (描述，可包含传说与现实的差异)",
-  "region_id": "string (所属区域 ID，可选，对应 regions 中某条记录的 id)"
-}
