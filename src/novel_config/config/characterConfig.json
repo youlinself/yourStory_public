@@ -1,0 +1,46 @@
+{
+  "id": "string (角色唯一 ID，如 npc_merchant_01)",
+  "name": "string (姓名)",
+  "age": "number (年龄)",
+  "性别": "string (性别，如 男、女)",
+  "族群": "string (族群，如 汉族、精灵族；架空世界可填虚构族群名)",
+  "origin": "string (出身背景，包括阶层、家庭)",
+  "cleanliness_score": "number (可选数值属性 0-100，含义由世界观决定，无则填合理默认)",
+  "physical_traits": "string (外貌特征，须符合题材与世界设定)",
+  "equipment": ["string (装备或持物描述列表，须与 novel_type 及 world_setting 中的时代与科技水平一致，不得偏离)"],
+  "skills": ["string (从技能库中选择1-6个技能 id，必须与已提供的 skills_db 中的 id 完全一致)"],
+  "items": [
+    {
+      "id": "string (物品ID，建议小写英文+下划线；须与 world_setting 时代科技一致)",
+      "quantity": "number (持有数量，>=1)",
+      "world_familiarity": "string (可选，本土寻常 | 本土罕见 | 域外异物；须与物品在本世界的可认知性一致，写入 items_db 供叙事判定)"
+    }
+  ],
+  "abilities": {
+    "str": "number (力量 STR/Power，0-100：物理破坏力、爆发力、负重能力)",
+    "agi": "number (敏捷 AGI/Speed，0-100：移动速度、出手速度、身体协调性、动态反应)",
+    "con": "number (体质 CON/Endurance，0-100：生命力、抗击打、免疫力、持久耐力)",
+    "int": "number (智力 INT/Wisdom，0-100：逻辑思维、学习能力、记忆力、策略与知识储备)",
+    "mnd": "number (精神 MND/Willpower，0-100：意志力、心理抗压/SAN、感知力、直觉)",
+    "cha": "number (魅力 CHA/Presence，0-100：领导力、说服力、外在吸引力、社交亲和或威压)"
+  },
+  "psychology": {
+    "openness": "number (开放性 Openness，0-100：保守循规蹈矩 ↔ 好奇富有想象力)",
+    "conscientiousness": "number (尽责性 Conscientiousness，0-100：散漫随性 ↔ 自律严谨高效)",
+    "extraversion": "number (外倾性 Extraversion，0-100：内向独处充电 ↔ 外向社交狂热)",
+    "agreeableness": "number (宜人型 Agreeableness，0-100：刻薄竞争性强 ↔ 友善乐于合作)",
+    "neuroticism": "number (神经质 Neuroticism，0-100：情绪稳定钝感 ↔ 焦虑敏感情绪化)"
+  },
+  "personality": "string (表层性格描述，可与 psychology 数值呼应)",
+  "deep_motivation": "string (深层动机)",
+  "core_conflict": "string (内心价值观冲突)",
+  "current_region_id": "string (可选，NPC 当前所在区域 id，对应 map_structure.regions)",
+  "current_key_node_id": "string (可选，NPC 当前所在关键节点 id，如酒馆/据点，对应 map_structure.key_nodes)",
+  "initial_scene": "string (故事开场场景，融入世界设定中的时间、地点与氛围；若未填 current_* 可据此推断子地点)",
+  "character_arc": "string (角色成长弧线概述)",
+  "relationships": {
+    "potential_allies": ["string (潜在盟友 NPC ID)"],
+    "enemy_npcs": ["string (敌对 NPC ID)"],
+    "enemy_factions": ["string (敌对势力 ID)"]
+  }
+}

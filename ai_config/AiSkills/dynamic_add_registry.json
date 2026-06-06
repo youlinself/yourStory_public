@@ -1,0 +1,62 @@
+{
+  "version": 2,
+  "skill_name": "dynamic_add",
+  "limits": {
+    "max_per_response": 5,
+    "description": "单次 AI 叙事回复中 [[DYN_ADD:...]] 标记最多处理条数，超出部分跳过并提示"
+  },
+  "batch_generation": {
+    "enabled": true,
+    "min_count": 2,
+    "description": "同轮标记数 >= min_count 时合并为一次生成请求，减少 API 调用"
+  },
+  "trigger": {
+    "open": "[[DYN_ADD:",
+    "close": "]]",
+    "separator": "|",
+    "description": "需要动态生成未预定义数据时，在回复中单独一行或句末嵌入此标记，不要输出 JSON。"
+  },
+  "categories": [
+    {
+      "schema_id": "loot_item",
+      "labels": ["物品", "道具", "loot_item", "item"],
+      "one_line": "消耗品、材料、货币、垃圾（不可穿戴）"
+    },
+    {
+      "schema_id": "loot_weapon",
+      "labels": ["装备", "武器", "loot_weapon", "weapon"],
+      "one_line": "武器、护甲、工具等可穿戴装备"
+    },
+    {
+      "schema_id": "runtime_skill",
+      "labels": ["技能", "runtime_skill", "skill"],
+      "one_line": "剧情或探索解锁的新技能"
+    },
+    {
+      "schema_id": "runtime_npc",
+      "labels": ["NPC", "角色", "runtime_npc", "npc"],
+      "one_line": "首次遭遇、未预置的 NPC"
+    },
+    {
+      "schema_id": "runtime_key_node",
+      "labels": ["子地点", "地点", "节点", "runtime_key_node", "key_node"],
+      "one_line": "小区、楼栋、店铺等具体场所（挂已有区域）"
+    },
+    {
+      "schema_id": "runtime_region",
+      "labels": ["区域", "城区", "runtime_region", "region"],
+      "one_line": "全新城区/片区（写入地图并解锁）"
+    }
+  ],
+  "examples": [
+    "[[DYN_ADD:物品|生锈的医疗柜里应该有药品]]",
+    "[[DYN_ADD:装备|辐射蟑螂巢穴里的锈蚀货架]]",
+    "[[DYN_ADD:技能|老猎人传授的急救手法]]",
+    "[[DYN_ADD:NPC|断桥集市的流浪商人]]",
+    "[[DYN_ADD:子地点|南郊康宁小区7栋501，住宅]]",
+    "[[DYN_ADD:区域|南郊，城郊住宅带]]"
+  ],
+  "multi_examples": [
+    "同一回复可写多条（不超过 max_per_response），例如翻找仓库：\n[[DYN_ADD:物品|医疗柜上层：碘酊与绷带]]\n[[DYN_ADD:物品|柜底：生锈零件与空弹壳]]\n[[DYN_ADD:装备|角落：破旧护腕]]"
+  ]
+}

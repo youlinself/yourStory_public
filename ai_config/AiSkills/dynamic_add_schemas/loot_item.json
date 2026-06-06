@@ -1,0 +1,101 @@
+{
+  "schema_id": "loot_item",
+  "version": 1,
+  "display_name": "运行时物品（非装备）",
+  "description": "消耗品、材料、货币、垃圾等不可穿戴条目。",
+  "when_to_use": [
+    "翻找废墟发现药品、食物、零件",
+    "敌人掉落材料或非武器装备物",
+    "NPC 赠送或交易中的普通道具"
+  ],
+  "target": {
+    "db_file": "items_db.json",
+    "envelope_key": "items",
+    "record_key_field": "id"
+  },
+  "dedupe": {
+    "fields": ["id", "name"],
+    "case_insensitive_name": true
+  },
+  "prompt_compact": {
+    "id": "",
+    "name": "",
+    "category": "消耗品|材料|货币|垃圾",
+    "rarity": "常见|罕见|稀有",
+    "weight": "轻|中|重",
+    "rad_dose": 0,
+    "cleanliness_impact": 0,
+    "value": 0,
+    "world_familiarity": "本土寻常|本土罕见|域外异物",
+    "description": "",
+    "effect": "",
+    "duration": null,
+    "craftable": false,
+    "craft_skill": null
+  },
+  "input_hints": {
+    "hint_category": "消耗品 | 材料 | 货币 | 垃圾",
+    "rarity_hint": "常见 | 罕见 | 稀有",
+    "source_context": "string，生成来源描述"
+  },
+  "output": {
+    "data": {
+      "id": "string，唯一 ID，建议小写英文+下划线+数字，如 expired_iodine_vial_001",
+      "name": "string，2-6 字，符合世界观命名",
+      "category": "消耗品 | 材料 | 货币 | 垃圾",
+      "rarity": "常见 | 罕见 | 稀有",
+      "weight": "轻 | 中 | 重",
+      "rad_dose": "number，0-50，使用或携带增加的辐射",
+      "cleanliness_impact": "number，-20 至 20，使用后洁净值变化",
+      "value": "number，0-100，以世界观货币单位计价",
+      "world_familiarity": "本土寻常 | 本土罕见 | 域外异物；与当前世界观基线的契合度：本土寻常=本地人常见可识；本土罕见=本地人少见但可理解类别；域外异物=来自异世/超前科技/异界等，本地人默认不识名称与价值",
+      "description": "string，一两句，体现来源与氛围",
+      "effect": "string，使用效果描述",
+      "duration": "string | null，时效，永久则为 null",
+      "craftable": "boolean",
+      "craft_skill": "string | null，可制作时填写技能 id"
+    }
+  },
+  "generation_rules": [
+    "结合 novel_type 与 baseConfig 世界设定、来源说明生成物品，名称/描述/效果/world_familiarity 均不得偏离；设定中无跨时代/异界/超前科技要素时不得生成不符之物",
+    "world_familiarity 须与物品在本世界的可认知性一致；域外或超前科技之物标域外异物",
+    "名称与描述须贴合已注入的世界观与本轮场景氛围",
+    "效果应体现代价：辐射、洁净值、副作用等",
+    "常见 value 约 1-10，罕见 20-50，稀有可更高",
+    "不要包含 slot、damage、defense 等装备专用字段"
+  ],
+  "example": {
+    "request": {
+      "skill": "dynamic_add",
+      "params": {
+        "schema_id": "loot_item",
+        "hints": {
+          "hint_category": "消耗品",
+          "rarity_hint": "常见"
+        },
+        "source_context": "生锈的医疗柜"
+      }
+    },
+    "response": {
+      "status": "new_created",
+      "schema_id": "loot_item",
+      "data": {
+        "id": "expired_iodine_vial_001",
+        "name": "过期碘酊",
+        "category": "消耗品",
+        "rarity": "常见",
+        "weight": "轻",
+        "rad_dose": 2,
+        "cleanliness_impact": -5,
+        "value": 8,
+        "world_familiarity": "本土寻常",
+        "description": "半瓶发黄的碘酊，标签模糊，瓶盖锈死。",
+        "effect": "外敷消毒，减少感染概率，但造成少量伤害，辐射+2。",
+        "duration": null,
+        "craftable": false,
+        "craft_skill": null
+      },
+      "storage_note": "已存入 items_db.json → items['expired_iodine_vial_001']"
+    }
+  }
+}

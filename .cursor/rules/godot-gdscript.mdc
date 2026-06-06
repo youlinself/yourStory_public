@@ -1,0 +1,30 @@
+---
+description: Godot 4 GDScript class_name、静态调用与静默 JSON 试探约定
+globs: **/*.gd
+alwaysApply: false
+---
+
+# Godot GDScript 项目约定
+
+完整排查步骤见 [docs/godot-gdscript-troubleshooting.md](docs/godot-gdscript-troubleshooting.md)。
+
+## class_name 与 preload
+
+- 若脚本**只**通过 `preload` 使用（如 `narrative_archive_service.gd`）：**不要**写 `class_name`；调用方用 `NarrativeArchiveServiceScript.foo()` / `.new()`，避免全局类缓存滞后导致 `Static function not found in base "..."`。
+- 若文件**已** `const S := preload(".../that_script.gd")`：静态方法与常量用 **`S.foo()` / `S.CONST`**（与 `ActionSuggestionBuilderScript` 一致）。
+- 需要全局 `class_name` 的脚本：新增 `static func` 后须重载项目；或改用 preload 专用无 `class_name` 的工具脚本。
+- 新增 `static func` 后：更新调用方 → 保存 → 对相关 `tests/*_test.gd` 跑 `godot --headless -s ...`。
+
+## 试探性 JSON 解析（AI 响应）
+
+- 对可能非 JSON 的文本（叙事正文、未知 AI 片段）**必须**使用 `AiResponseParser.parse_json_from_ai_text()`，不要直接 `JSON.parse_string`。
+- 该函数已做形状预判（`{` / `[`）与 `JSON.new().parse()` 静默失败；失败返回 `null`，不向控制台打 E 级 `Parse JSON failed`。
+- 多路径解析（如 `NarrativeTurnParser.parse_from_api_response`）保留「先试统一 JSON，再试 HOOK」策略；消噪在 parser 层，不要删掉后备路径。
+- 若仅有 `Parse JSON failed` 且游戏仍出剧情，先查文档 B 节，勿误判为 AI 全面故障。
+
+## 修改后自检
+
+```powershell
+godot --headless -s tests/narrative_context_logic_test.gd
+godot --headless -s tests/ai_response_parser_base_config_test.gd
+```

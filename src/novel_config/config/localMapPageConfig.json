@@ -1,0 +1,21 @@
+{
+  "id": "string (唯一，如 map_region_fortress)",
+  "name": "string (地图页显示名)",
+  "parent_type": "region | key_node",
+  "parent_id": "string (对应 region.id 或 key_node.id)",
+  "width": "integer (5-50，AI 决定本地图尺寸)",
+  "height": "integer (5-50)",
+  "default_terrain": "string (须出现在 terrain_types 中)",
+  "terrain_types": ["string (本场地图允许的地形类型，如 平原、树林、城墙)"],
+  "cell_marks": [
+    {
+      "x": "integer (0-based 列)",
+      "y": "integer (0-based 行)",
+      "type": "string (须为 terrain_types 之一)",
+      "name": "string (可选，特殊地点显示名)",
+      "key_node_id": "string (可选，绑定已有 key_node)",
+      "child_map_id": "string (可选，该格进入子地图页 id)"
+    }
+  ],
+  "cells": ["<运行时由程序生成，AI 勿输出完整 cells>"]
+}

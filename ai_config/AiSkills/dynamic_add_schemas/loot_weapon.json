@@ -1,0 +1,103 @@
+{
+  "schema_id": "loot_weapon",
+  "version": 1,
+  "display_name": "运行时武器/装备",
+  "description": "可穿戴或可装备的武器、护甲、工具等。",
+  "when_to_use": [
+    "废墟中发现武器、护甲、工具",
+    "敌人掉落装备",
+    "锻造、改造或奖励获得的新装备"
+  ],
+  "target": {
+    "db_file": "weapon_db.json",
+    "envelope_key": "weapons",
+    "record_key_field": "id"
+  },
+  "dedupe": {
+    "fields": ["id", "name"],
+    "case_insensitive_name": true
+  },
+  "prompt_compact": {
+    "id": "",
+    "name": "",
+    "category": "武器|护甲|工具",
+    "rarity": "常见|罕见|稀有",
+    "weight": "轻|中|重",
+    "rad_dose": 0,
+    "cleanliness_impact": 0,
+    "value": 0,
+    "world_familiarity": "本土寻常|本土罕见|域外异物",
+    "description": "",
+    "slot": "武器|护甲|头部|手部|脚部|工具|饰品",
+    "damage": null,
+    "defense": null,
+    "special_effect": null,
+    "required_skill": null
+  },
+  "input_hints": {
+    "hint_slot": "武器 | 护甲 | 头部 | 手部 | 脚部 | 工具 | 饰品",
+    "rarity_hint": "常见 | 罕见 | 稀有",
+    "source_context": "string"
+  },
+  "output": {
+    "data": {
+      "id": "string，唯一 ID",
+      "name": "string，2-6 字",
+      "category": "武器 | 护甲 | 工具",
+      "rarity": "常见 | 罕见 | 稀有",
+      "weight": "轻 | 中 | 重",
+      "rad_dose": "number，0-50",
+      "cleanliness_impact": "number，-20 至 20",
+      "value": "number，0-100",
+      "world_familiarity": "本土寻常 | 本土罕见 | 域外异物；与当前世界观基线的契合度",
+      "description": "string",
+      "slot": "武器 | 护甲 | 头部 | 手部 | 脚部 | 工具 | 饰品",
+      "damage": "string，数值或描述，如 +15% 近战伤害",
+      "defense": "string，数值或描述",
+      "special_effect": "string | null",
+      "required_skill": "string | null，装备所需技能 id"
+    }
+  },
+  "generation_rules": [
+    "结合 novel_type 与 baseConfig 世界设定、来源说明生成装备，名称/描述/效果/world_familiarity 均不得偏离；设定中无跨时代/异界/超前科技要素时不得生成不符之物",
+    "world_familiarity 须与装备在本世界的可认知性一致；域外或超前科技之物标域外异物",
+    "须指定 slot，且 damage/defense 至少有一项非空",
+    "稀有装备应有独特 special_effect 或明显代价",
+    "与 loot_item 互斥：装备类不要写 effect、craftable 等物品字段"
+  ],
+  "example": {
+    "request": {
+      "skill": "dynamic_add",
+      "params": {
+        "schema_id": "loot_weapon",
+        "hints": {
+          "hint_slot": "武器",
+          "rarity_hint": "罕见"
+        },
+        "source_context": "变种巢穴深处的锈蚀货架"
+      }
+    },
+    "response": {
+      "status": "new_created",
+      "schema_id": "loot_weapon",
+      "data": {
+        "id": "rebar_cleaver_001",
+        "name": "钢筋砍刀",
+        "category": "武器",
+        "rarity": "罕见",
+        "weight": "中",
+        "rad_dose": 0,
+        "cleanliness_impact": -3,
+        "value": 35,
+        "world_familiarity": "本土寻常",
+        "description": "工地钢筋弯成的砍刀，刃口参差，握柄缠脏绷带。",
+        "slot": "武器",
+        "damage": "+20% 近战伤害",
+        "defense": null,
+        "special_effect": "对甲壳类变种额外造成撕裂",
+        "required_skill": null
+      },
+      "storage_note": "已存入 weapon_db.json → weapons['rebar_cleaver_001']"
+    }
+  }
+}

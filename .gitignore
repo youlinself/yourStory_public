@@ -1,0 +1,37 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+.claude/
+.vscode/
+addons/
+hastur-operation-plugin/
+
+# --- 本地 SDK / 工具 ---
+.tools/
+
+# --- AI 敏感配置 ---
+ai_config/aiConfig.json
+
+# --- 后端日志与调试产物 ---
+ai_backend/*.txt
+ai_backend/_test_*
+ai_backend/phase1_*.json
+
+# --- 个人游戏导出 ---
+novel_txt/
+
+# --- 构建产物 ---
+/dist/
+dist.zip
+
+# --- 若调试时复制到仓库根的本地存档 ---
+game_runtime_data/
+game_history/
+
+# --- 环境变量 ---
+.env
+.env.*
+
+# --- OS 杂项 ---
+.DS_Store
+Thumbs.db

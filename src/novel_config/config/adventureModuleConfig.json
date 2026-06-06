@@ -1,0 +1,8 @@
+{
+  "opening_hook": "string (开场冒险钩子，1–2 句，玩家可见)",
+  "immediate_goal": "string (本场景即时目标)",
+  "failure_pressure": "string (若失败或拖延会发生什么)",
+  "dm_secrets": ["string (DM 私密真相，玩家暂不可知)"],
+  "scene_timer": "string (可选，倒计时或时间压力描述)",
+  "tone": "string (冒险基调，如紧张/阴郁/诙谐)"
+}

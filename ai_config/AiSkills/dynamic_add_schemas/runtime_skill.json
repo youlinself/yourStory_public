@@ -1,0 +1,60 @@
+{
+  "schema_id": "runtime_skill",
+  "version": 1,
+  "display_name": "运行时技能",
+  "description": "剧情、训练或探索中解锁、且未出现在初始技能库中的技能。",
+  "when_to_use": [
+    "主角或 NPC 学会新技能",
+    "任务奖励赋予特殊能力"
+  ],
+  "target": {
+    "db_file": "skills_db.json",
+    "envelope_key": "skills",
+    "record_key_field": "id"
+  },
+  "reuse_config_path": "res://src/novel_config/config/skillConfig.json",
+  "prompt_compact": {
+    "id": "",
+    "name": "",
+    "desc": ""
+  },
+  "dedupe": {
+    "fields": ["id", "name"],
+    "case_insensitive_name": true
+  },
+  "input_hints": {
+    "theme": "string，技能主题或用途",
+    "power_level": "日常 | 战斗 | 稀有"
+  },
+  "output": {
+    "data": "字段定义见 reuse_config_path，生成时填满 prompt_compact"
+  },
+  "generation_rules": [
+    "字段仅 id、name、desc（与 skillConfig.json 一致，生成轮由程序注入该文件）",
+    "id 勿与 world_init 已提供的技能库 id 重复；重复时应返回 already_exists",
+    "desc 浅显易懂，符合当前世界观"
+  ],
+  "example": {
+    "request": {
+      "skill": "dynamic_add",
+      "params": {
+        "schema_id": "runtime_skill",
+        "hints": {
+          "theme": "废墟急救",
+          "power_level": "日常"
+        },
+        "source_context": "老猎人传授"
+      }
+    },
+    "response": {
+      "status": "new_created",
+      "schema_id": "runtime_skill",
+      "data": {
+        "id": "skill_rust_field_dressing",
+        "name": "锈带包扎",
+        "desc": "用脏绷带快速止血，感染风险略升。"
+      },
+      "storage_note": "已存入 skills_db.json → skills['skill_rust_field_dressing']"
+    }
+  }
+}
